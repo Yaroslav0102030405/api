@@ -11,3 +11,8 @@
 ## Стек технологій:
 
 React + TypeScript + Node + Express + MongoDB
+
+### Запустити проект
+
+- npm run dev (frontend)
+- npm run server (backend)
