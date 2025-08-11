@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./App.css"; // Імпортуємо наш файл стилів
 
 // Визначаємо інтерфейс для даних статті
 interface Post {
@@ -14,33 +15,28 @@ const PostList: React.FC<{
   onEditPost: (post: Post) => void;
 }> = ({ posts, onDeletePost, onEditPost }) => {
   return (
-    <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4 text-gray-800">Список статей</h2>
+    <div className="post-list">
+      <h2 className="post-list-title">Список статей</h2>
       {posts.length === 0 ? (
-        <p className="text-gray-600">Наразі немає статей.</p>
+        <p className="post-list-empty-message">Наразі немає статей.</p>
       ) : (
-        <ul className="space-y-4">
+        <ul className="post-list-ul">
           {posts.map((post) => (
-            <li
-              key={post._id}
-              className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex justify-between items-center"
-            >
+            <li key={post._id} className="post-list-item">
               <div>
-                <h3 className="text-xl font-semibold text-blue-600">
-                  {post.title}
-                </h3>
-                <p className="text-gray-700 mt-2">{post.content}</p>
+                <h3 className="post-list-item-title">{post.title}</h3>
+                <p className="post-list-item-content">{post.content}</p>
               </div>
-              <div className="flex space-x-2">
+              <div className="post-list-buttons">
                 <button
                   onClick={() => onEditPost(post)}
-                  className="px-3 py-1 bg-yellow-500 text-white text-sm font-medium rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
+                  className="edit-button"
                 >
                   Редагувати
                 </button>
                 <button
                   onClick={() => onDeletePost(post._id)}
-                  className="px-3 py-1 bg-red-500 text-white text-sm font-medium rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                  className="delete-button"
                 >
                   Видалити
                 </button>
@@ -119,16 +115,13 @@ const PostForm: React.FC<{
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4 text-gray-800">
+    <div className="post-form">
+      <h2 className="post-form-title">
         {postToEdit ? "Редагувати статтю" : "Створити нову статтю"}
       </h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="post-form-form">
         <div>
-          <label
-            htmlFor="title"
-            className="block text-sm font-medium text-gray-700"
-          >
+          <label htmlFor="title" className="post-form-label">
             Назва статті
           </label>
           <input
@@ -136,38 +129,32 @@ const PostForm: React.FC<{
             id="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+            className="post-form-input"
             required
           />
         </div>
         <div>
-          <label
-            htmlFor="content"
-            className="block text-sm font-medium text-gray-700"
-          >
+          <label htmlFor="content" className="post-form-label">
             Зміст статті
           </label>
           <textarea
             id="content"
-            rows={4}
+            rows={6}
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+            className="post-form-textarea"
             required
           ></textarea>
         </div>
-        <div className="flex space-x-2">
-          <button
-            type="submit"
-            className="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-          >
+        <div className="post-form-buttons">
+          <button type="submit" className="submit-button">
             {postToEdit ? "Оновити" : "Створити"}
           </button>
           {postToEdit && (
             <button
               type="button"
               onClick={() => setPostToEdit(null)}
-              className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="cancel-button"
             >
               Скасувати
             </button>
@@ -236,9 +223,9 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-200 p-8 flex flex-col items-center font-sans">
-      <h1 className="text-4xl font-extrabold mb-8 text-gray-900">Мій Блог</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl">
+    <div className="app">
+      <h1 className="app-title">Мій Блог</h1>
+      <div className="app-container">
         <PostForm
           onPostCreated={handlePostCreated}
           onPostUpdated={handlePostUpdated}

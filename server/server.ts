@@ -1,15 +1,12 @@
-import dotenv from "dotenv";
-dotenv.config();
-
 import express from "express";
 import type { Request, Response } from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 
-// --- Налаштування MongoDB та Mongoose ---
+import dotenv from "dotenv";
+dotenv.config();
 
-// Визначення URL для підключення до бази даних MongoDB Atlas.
-// ВАЖЛИВО: Цей URL читається зі змінних середовища.
+// Імпортуємо змінні середовища з файлу .env
 const mongoDbUrl = process.env.MONGO_DB_URL;
 
 // Функція для підключення до бази даних MongoDB.

@@ -1,5 +1,6 @@
 {
   "name": "api",
+  "homepage": "https://Yaroslav0102030405.github.io/api",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,12 +9,15 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "server": "ts-node ./server/server.ts"
+    "server": "node server/server.ts",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
+    "gh-pages": "^6.3.0",
     "mongoose": "^8.17.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
